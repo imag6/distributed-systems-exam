@@ -1,0 +1,30 @@
+syntax = "proto3";
+option go_package = "./dht";
+package dht;
+
+message Pair {
+    bool isClient = 1;
+    int32 key = 2;
+    int32 value = 3;
+}
+
+message Ack {
+    bool wasSuccess = 1;
+}
+
+message Value {
+    bool isClient = 1;
+    int32 value = 2;
+}
+
+message Key {
+    bool isClient = 1;
+    int32 key = 2;
+}
+
+service DhtService{
+    rpc Put(Pair) returns (Ack) {}
+    rpc Get(Key) returns (Value) {}
+}
+
+//protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative chat.proto
